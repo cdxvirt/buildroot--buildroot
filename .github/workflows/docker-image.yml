@@ -28,9 +28,9 @@ jobs:
       run: |
         echo Dockerfile: ${{ inputs.Dockerfile }}
         echo custom-config: ${{ inputs.custom-config }}
-        echo GITHUB_WORKSPACE: ${{ GITHUB_WORKSPACE }}
-        echo GITHUB_REPOSITORY: ${{ GITHUB_REPOSITORY }}
-        echo GITHUB_ACTION_REPOSITORY: ${{ GITHUB_ACTION_REPOSITORY }}
+        echo GITHUB_WORKSPACE: ${{ github.workspace }}
+        echo GITHUB_REPOSITORY: ${{ github.repository }}
+        echo GITHUB_ACTION_REPOSITORY: $GITHUB_ACTION_REPOSITORY
     - name: Build the Docker image
       #run: docker build . --file ${{ input.Dockerfile }} --tag my-image-name:$(date +%s)
       run: cd support/docker && docker build . --file Dockerfile --tag local
