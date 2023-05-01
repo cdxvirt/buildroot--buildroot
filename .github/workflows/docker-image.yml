@@ -1,0 +1,32 @@
+name: Docker Image CI Dummy
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+    inputs:
+      Dockerfile:
+        description: 'Dockerfile'
+        required: false
+        default: 'support/docker/Dockerfile'
+      custom-config:
+        description: 'custom-config'
+        required: false
+        default: 'qemu_x86_64_defconfig'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-20.04 #ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      #run: docker build . --file ${{ input.Dockerfile }} --tag my-image-name:$(date +%s)
+      run: docker build . --file ${{ input.Dockerfile }} --tag local
+    - name: Run the docker image and make custom-config
+      run: docker run -it -v $PWD:/srv -w/srv local make ${{ input.custom-config }}
+
