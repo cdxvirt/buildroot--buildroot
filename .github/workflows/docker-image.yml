@@ -20,10 +20,15 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-20.04 #ubuntu-latest
+    runs-on: ubuntu-22.04 #ubuntu-20.04 #ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: |
+        echo Dockerfile: ${{ inputs.Dockerfile }}
+        echo custom-config: ${{ inputs.custom-config }}
+        echo $(PWD)
     - name: Build the Docker image
       #run: docker build . --file ${{ input.Dockerfile }} --tag my-image-name:$(date +%s)
       run: cd support/docker && docker build . --file Dockerfile --tag local
